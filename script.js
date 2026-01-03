@@ -49,21 +49,14 @@ function isBirthday() {
 }
 
 function teleportButtonNearOriginal(button) {
-    let wrapper = document.getElementById("wrapper");
-    let origX = wrapper.clientWidth / 2 - button.offsetWidth / 2;
-    let origY = wrapper.clientHeight / 2 - button.offsetHeight / 2;
+    const rect = button.getBoundingClientRect();
+    const x = rect.left + rect.width / 2;
+    const y = rect.top + rect.height / 2;
 
-    let offsetX = (Math.random() - 0.5) * 200;
-    let offsetY = (Math.random() - 0.5) * 200;
+    createParticles(x, y);
 
-    let newX = Math.min(Math.max(origX + offsetX, 0), wrapper.clientWidth - button.offsetWidth);
-    let newY = Math.min(Math.max(origY + offsetY, 0), wrapper.clientHeight - button.offsetHeight);
-
-    button.style.position = "absolute";
-    button.style.left = newX + "px";
-    button.style.top = newY + "px";
-
-    createParticles(newX + button.offsetWidth / 2, newY + button.offsetHeight / 2);
+    button.style.opacity = "0";
+    button.style.pointerEvents = "none";
 }
 
 function createParticles(x, y) {
@@ -75,14 +68,20 @@ function createParticles(x, y) {
         particle.style.top = y + "px";
         particle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
         document.body.appendChild(particle);
+
         let angle = Math.random() * 2 * Math.PI;
         let distance = Math.random() * 80 + 20;
         let dx = Math.cos(angle) * distance;
         let dy = Math.sin(angle) * distance;
-        particle.animate([
-            { transform: "translate(0,0) scale(1)", opacity: 1 },
-            { transform: `translate(${dx}px, ${dy}px) scale(0.3)`, opacity: 0 }
-        ], { duration: 800, easing: "ease-out" });
+
+        particle.animate(
+            [
+                { transform: "translate(0,0) scale(1)", opacity: 1 },
+                { transform: `translate(${dx}px, ${dy}px) scale(0.3)`, opacity: 0 }
+            ],
+            { duration: 800, easing: "ease-out" }
+        );
+
         setTimeout(() => particle.remove(), 800);
     }
 }
@@ -141,12 +140,15 @@ function updateCountdown() {
     let today = new Date();
     let nextBirthday = new Date(today.getFullYear(), 0, 7);
     if (today > nextBirthday) nextBirthday.setFullYear(today.getFullYear() + 1);
+
     let diff = nextBirthday - today;
     let days = Math.floor(diff / (1000 * 60 * 60 * 24));
     let hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
     let minutes = Math.floor((diff / (1000 * 60)) % 60);
     let seconds = Math.floor((diff / 1000) % 60);
-    countdownDiv.textContent = `Time until birthday: ${days}d ${hours}h ${minutes}m ${seconds}s`;
+
+    countdownDiv.textContent =
+        `Time until birthday: ${days}d ${hours}h ${minutes}m ${seconds}s`;
 }
 
 setInterval(updateCountdown, 1000);
