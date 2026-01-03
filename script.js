@@ -53,8 +53,8 @@ function teleportButtonNearOriginal(button) {
     let origX = wrapper.clientWidth / 2 - button.offsetWidth / 2;
     let origY = wrapper.clientHeight / 2 - button.offsetHeight / 2;
 
-    let offsetX = (Math.random() - 0.5) * 120;
-    let offsetY = (Math.random() - 0.5) * 120;
+    let offsetX = (Math.random() - 0.5) * 200;
+    let offsetY = (Math.random() - 0.5) * 200;
 
     let newX = Math.min(Math.max(origX + offsetX, 0), wrapper.clientWidth - button.offsetWidth);
     let newY = Math.min(Math.max(origY + offsetY, 0), wrapper.clientHeight - button.offsetHeight);
