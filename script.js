@@ -93,31 +93,32 @@ btnLetter.addEventListener("mouseenter", function () {
     if (!isBirthday()) teleportButtonNearOriginal(this);
 });
 
-$(".boxMail").addClass("active");
-birthdayMusic.play().catch(e => console.log("Autoplay blocked"));
+btnLetter.addEventListener("click", function () {
+    $(".boxMail").addClass("active");
+    birthdayMusic.play().catch(e => console.log("Autoplay blocked"));
 
-setTimeout(function () {
-    intervalTitle = setInterval(function () {
-        if (currentIndexTitle < charArrTitle.length) {
-            document.querySelector(".title__letter").textContent += charArrTitle[currentIndexTitle];
-            currentIndexTitle++;
-        } else clearInterval(intervalTitle);
-    }, 100)
-}, 500);
+    setTimeout(function () {
+        intervalTitle = setInterval(function () {
+            if (currentIndexTitle < charArrTitle.length) {
+                document.querySelector(".title__letter").textContent += charArrTitle[currentIndexTitle];
+                currentIndexTitle++;
+            } else clearInterval(intervalTitle);
+        }, 100)
+    }, 500);
 
-setTimeout(function () {
-    let mewmew = document.getElementById("mewmew");
-    mewmew.style.opacity = 1;
-}, 1500);
+    setTimeout(function () {
+        let mewmew = document.getElementById("mewmew");
+        mewmew.style.opacity = 1;
+    }, 1500);
 
-setTimeout(function () {
-    intervalContent = setInterval(function () {
-        if (currentIndexLetter < charArrDateLetter.length) {
-            text__letter.textContent += charArrDateLetter[currentIndexLetter];
-            currentIndexLetter++;
-        } else clearInterval(intervalContent);
-    }, 50)
-}, 2000);
+    setTimeout(function () {
+        intervalContent = setInterval(function () {
+            if (currentIndexLetter < charArrDateLetter.length) {
+                text__letter.textContent += charArrDateLetter[currentIndexLetter];
+                currentIndexLetter++;
+            } else clearInterval(intervalContent);
+        }, 50)
+    }, 2000);
 });
 
 close.addEventListener('click', function () {
